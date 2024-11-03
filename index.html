@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumail's Website</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        /* Title styling */
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Image container styling */
+        .movie-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        /* Image styling with hover zoom effect */
+        .movie-container img {
+            width: 300px;
+            height: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-container:hover img {
+            transform: scale(0.95); /* Zoom down effect */
+        }
+
+        /* Button styling */
+        .button-container {
+            margin-top: 10px;
+        }
+
+        .movie-button {
+            background-color: #ff4500; /* Orange button */
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .movie-button:hover {
+            transform: scale(0.95); /* Zoom down effect */
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>Kumail's Website</h1>
+    
+    <!-- Movie Image with Button -->
+    <div class="movie-container">
+        <img src="images/image.jpg" alt="Movie Thumbnail">
+        <div class="button-container">
+            <button class="movie-button">Movie One</button>
+        </div>
+    </div>
+</body>
+</html>
