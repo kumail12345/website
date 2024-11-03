@@ -45,23 +45,24 @@
             transform: scale(0.95); /* Zoom down effect */
         }
 
-        /* Button styling over image */
+        /* Transparent button styling */
         .movie-button {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #ff4500; /* Orange button */
-            border: none;
-            padding: 10px 20px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0;
             color: #fff;
             font-size: 16px;
+            background-color: rgba(0, 0, 0, 0.5); /* Slightly dark transparent background */
+            border: none;
             cursor: pointer;
             transition: transform 0.3s ease;
+            text-align: center;
         }
 
         .movie-container:hover .movie-button {
-            transform: translateX(-50%) scale(0.95); /* Zoom down effect */
+            transform: scale(0.95); /* Zoom down effect */
         }
     </style>
 </head>
@@ -69,7 +70,7 @@
     <!-- Title -->
     <h1>Kumail's Website</h1>
     
-    <!-- Movie Image with Button on Top -->
+    <!-- Movie Image with Transparent Button -->
     <div class="movie-container">
         <img src="images/image.jpg" alt="Movie Thumbnail">
         <button class="movie-button">Movie One</button>
