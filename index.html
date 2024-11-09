@@ -72,21 +72,13 @@
             background-color: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
-        /* Zoom animation for opening modal */
-        .zoom-image {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 400px;
-            transform: translate(-50%, -50%) scale(1);
-            transition: transform 0.5s ease;
-        }
-
-        .zoomed {
-            transform: translate(-50%, -50%) scale(1.5);
+        .modal.show {
+            display: flex;
+            opacity: 1;
         }
 
         /* Close button */
@@ -112,9 +104,9 @@
     <h1>Kumail's Website</h1>
     
     <!-- Movie Image with Transparent Button -->
-    <div class="movie-container">
+    <div class="movie-container" onclick="startZoom()">
         <img id="movieThumbnail" src="images/flash.jpg" alt="Movie Thumbnail">
-        <div class="movie-button" onclick="startZoom()">Flash S1 Ep1</div>
+        <div class="movie-button">Flash S1 Ep1</div>
     </div>
 
     <!-- Modal with Embedded Video -->
@@ -127,23 +119,24 @@
     <script>
         function startZoom() {
             const thumbnail = document.getElementById('movieThumbnail');
-            thumbnail.classList.add('zoomed');
-            
+            thumbnail.style.transition = 'transform 0.5s ease';
+            thumbnail.style.transform = 'scale(1.5)';
+
             // Wait for the zoom animation to finish before opening the modal
-            setTimeout(openModal, 500);
+            setTimeout(() => {
+                thumbnail.style.transform = 'scale(1)'; // Reset the zoom on the thumbnail
+                openModal();
+            }, 500);
         }
 
         function openModal() {
             const modal = document.getElementById('movieModal');
-            modal.style.display = 'flex';
-            
-            // Remove zoom effect after opening the modal
-            const thumbnail = document.getElementById('movieThumbnail');
-            thumbnail.classList.remove('zoomed');
+            modal.classList.add('show');
         }
 
         function closeModal() {
-            document.getElementById('movieModal').style.display = 'none';
+            const modal = document.getElementById('movieModal');
+            modal.classList.remove('show');
         }
     </script>
 </body>
