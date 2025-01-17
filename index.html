@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumail's Website</title>
+    <title>Kumail's Website Nevan and Abdullah to broke to afford movies :) </title>
     <style>
         /* General styling */
         body {
@@ -17,6 +17,7 @@
             height: 100vh;
             text-align: center;
             flex-direction: column;
+            overflow: hidden;
         }
 
         /* Title styling */
@@ -32,70 +33,64 @@
             width: 300px;
             height: 400px;
             overflow: hidden;
+            cursor: pointer;
+            z-index: 1;
         }
 
-        /* Image styling with hover effect */
+        /* Image styling */
         .movie-container img {
             width: 100%;
             height: 100%;
             transition: transform 0.3s ease;
         }
 
-        .movie-container:hover img {
-            transform: scale(0.95);
-        }
-
-        /* Transparent button styling */
-        .movie-button {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 10px 0;
-            color: #fff;
-            font-size: 16px;
-            background-color: rgba(0, 0, 0, 0.5);
-            text-decoration: none;
-            border: none;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        /* Modal styling */
-        .modal {
-            display: none;
+        /* Dimmed background styling */
+        .dimmed-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 5;
+            display: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .modal.show {
-            display: flex;
+        .dimmed-background.show {
+            display: block;
             opacity: 1;
+        }
+
+        /* Netflix-style zoom effect */
+        .movie-container.expand {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .movie-container img.expand {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Close button */
         .close-button {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 30px;
             font-size: 24px;
             color: #fff;
+            z-index: 15;
             cursor: pointer;
-        }
-
-        /* Fullscreen iframe for video */
-        .modal iframe {
-            width: 80%;
-            height: 80%;
-            border: none;
+            display: none;
         }
     </style>
 </head>
@@ -103,40 +98,38 @@
     <!-- Title -->
     <h1>Kumail's Website</h1>
     
-    <!-- Movie Image with Transparent Button -->
-    <div class="movie-container" onclick="startZoom()">
+    <!-- Dimmed background -->
+    <div class="dimmed-background" id="dimmedBackground"></div>
+
+    <!-- Movie Image -->
+    <div class="movie-container" id="movieContainer" onclick="openZoom()">
         <img id="movieThumbnail" src="images/flash.jpg" alt="Movie Thumbnail">
-        <div class="movie-button">Flash S1 Ep1</div>
     </div>
 
-    <!-- Modal with Embedded Video -->
-    <div class="modal" id="movieModal">
-        <span class="close-button" onclick="closeModal()">&times;</span>
-        <iframe src="https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview" allow="autoplay"></iframe>
-    </div>
+    <!-- Close Button -->
+    <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
 
-    <!-- JavaScript for Modal Functionality -->
+    <!-- JavaScript for Zoom Effect -->
     <script>
-        function startZoom() {
-            const thumbnail = document.getElementById('movieThumbnail');
-            thumbnail.style.transition = 'transform 0.5s ease';
-            thumbnail.style.transform = 'scale(1.5)';
+        const movieContainer = document.getElementById('movieContainer');
+        const movieThumbnail = document.getElementById('movieThumbnail');
+        const dimmedBackground = document.getElementById('dimmedBackground');
+        const closeButton = document.getElementById('closeButton');
 
-            // Wait for the zoom animation to finish before opening the modal
-            setTimeout(() => {
-                thumbnail.style.transform = 'scale(1)'; // Reset the zoom on the thumbnail
-                openModal();
-            }, 500);
+        // Function to open the zoom effect
+        function openZoom() {
+            movieContainer.classList.add('expand');
+            movieThumbnail.classList.add('expand');
+            dimmedBackground.classList.add('show');
+            closeButton.style.display = 'block';
         }
 
-        function openModal() {
-            const modal = document.getElementById('movieModal');
-            modal.classList.add('show');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('movieModal');
-            modal.classList.remove('show');
+        // Function to close the zoom effect
+        function closeZoom() {
+            movieContainer.classList.remove('expand');
+            movieThumbnail.classList.remove('expand');
+            dimmedBackground.classList.remove('show');
+            closeButton.style.display = 'none';
         }
     </script>
 </body>
