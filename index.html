@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumail's Website Nevan and Abdullah to broke to afford movies :) </title>
+    <title>Kumail's Website</title>
     <style>
         /* General styling */
         body {
@@ -81,6 +81,30 @@
             object-fit: cover;
         }
 
+        /* Modal iframe */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 15;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
         /* Close button */
         .close-button {
             position: fixed;
@@ -88,9 +112,13 @@
             right: 30px;
             font-size: 24px;
             color: #fff;
-            z-index: 15;
+            z-index: 20;
             cursor: pointer;
             display: none;
+        }
+
+        .close-button.show {
+            display: block;
         }
     </style>
 </head>
@@ -106,30 +134,46 @@
         <img id="movieThumbnail" src="images/flash.jpg" alt="Movie Thumbnail">
     </div>
 
+    <!-- Modal -->
+    <div class="modal" id="movieModal">
+        <iframe id="movieIframe" allow="autoplay"></iframe>
+    </div>
+
     <!-- Close Button -->
     <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
 
-    <!-- JavaScript for Zoom Effect -->
+    <!-- JavaScript for Zoom Effect and Video Playback -->
     <script>
         const movieContainer = document.getElementById('movieContainer');
         const movieThumbnail = document.getElementById('movieThumbnail');
         const dimmedBackground = document.getElementById('dimmedBackground');
         const closeButton = document.getElementById('closeButton');
+        const movieModal = document.getElementById('movieModal');
+        const movieIframe = document.getElementById('movieIframe');
 
-        // Function to open the zoom effect
+        // Function to open the zoom effect and start the video
         function openZoom() {
             movieContainer.classList.add('expand');
             movieThumbnail.classList.add('expand');
             dimmedBackground.classList.add('show');
-            closeButton.style.display = 'block';
+            closeButton.classList.add('show');
+            movieModal.classList.add('show');
+
+            // Set the Google Drive link and start the video
+            const videoURL = "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview";
+            movieIframe.src = videoURL;
         }
 
-        // Function to close the zoom effect
+        // Function to close the zoom effect and stop the video
         function closeZoom() {
             movieContainer.classList.remove('expand');
             movieThumbnail.classList.remove('expand');
             dimmedBackground.classList.remove('show');
-            closeButton.style.display = 'none';
+            closeButton.classList.remove('show');
+            movieModal.classList.remove('show');
+
+            // Stop the video by removing the iframe src
+            movieIframe.src = "";
         }
     </script>
 </body>
