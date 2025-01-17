@@ -44,6 +44,20 @@
             transition: transform 0.3s ease;
         }
 
+        /* Button text at the bottom */
+        .movie-button {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0;
+            color: #fff;
+            font-size: 16px;
+            background-color: rgba(50, 50, 50, 0.8);
+            text-align: center;
+            text-transform: uppercase;
+        }
+
         /* Dimmed background styling */
         .dimmed-background {
             position: fixed;
@@ -124,7 +138,7 @@
 </head>
 <body>
     <!-- Title -->
-    <h1>Kumail's Website</h1>
+    <h1>Kumail's Website Nevan and Abdullah to broke to afford movies :)</h1>
     
     <!-- Dimmed background -->
     <div class="dimmed-background" id="dimmedBackground"></div>
@@ -132,6 +146,7 @@
     <!-- Movie Image -->
     <div class="movie-container" id="movieContainer" onclick="openZoom()">
         <img id="movieThumbnail" src="images/flash.jpg" alt="Movie Thumbnail">
+        <div class="movie-button">Flash S1 Ep1</div>
     </div>
 
     <!-- Modal -->
