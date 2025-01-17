@@ -1,195 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Squid Game</title>
-    <style>
-        /* General styling */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            flex-direction: column;
-            overflow: hidden;
-        }
+<script>
+    const movieContainer = document.getElementById('movieContainer');
+    const movieThumbnail = document.getElementById('movieThumbnail');
+    const dimmedBackground = document.getElementById('dimmedBackground');
+    const closeButton = document.getElementById('closeButton');
+    const movieModal = document.getElementById('movieModal');
+    const movieIframe = document.getElementById('movieIframe');
 
-        /* Title styling */
-        h1 {
-            margin-bottom: 20px;
-        }
+    // Function to open the zoom effect and start the video
+    function openZoom() {
+        movieContainer.classList.add('expand');
+        movieThumbnail.classList.add('expand');
+        dimmedBackground.classList.add('show');
+        closeButton.classList.add('show');
+        movieModal.classList.add('show');
 
-        /* Image container styling */
-        .movie-container {
-            position: relative;
-            display: inline-block;
-            margin-top: 20px;
-            width: 300px;
-            height: 400px;
-            overflow: hidden;
-            cursor: pointer;
-            z-index: 1;
-        }
+        // Set the Google Drive link (updated to use preview)
+        const videoURL = "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview"; // Updated link
+        movieIframe.src = videoURL;
+    }
 
-        /* Image styling */
-        .movie-container img {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.3s ease;
-        }
+    // Function to close the zoom effect and stop the video
+    function closeZoom() {
+        movieContainer.classList.remove('expand');
+        movieThumbnail.classList.remove('expand');
+        dimmedBackground.classList.remove('show');
+        closeButton.classList.remove('show');
+        movieModal.classList.remove('show');
 
-        /* Button text at the bottom */
-        .movie-button {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 10px 0;
-            color: #fff;
-            font-size: 16px;
-            background-color: rgba(50, 50, 50, 0.8);
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        /* Dimmed background styling */
-        .dimmed-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 5;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .dimmed-background.show {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Netflix-style zoom effect */
-        .movie-container.expand {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 100vw;
-            height: 100vh;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            transition: all 0.5s ease-in-out;
-        }
-
-        .movie-container img.expand {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Modal iframe */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            z-index: 15;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-
-        .modal iframe {
-            width: 80%;
-            height: 80%;
-            border: none;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        /* Close button */
-        .close-button {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            font-size: 24px;
-            color: #fff;
-            z-index: 20;
-            cursor: pointer;
-            display: none;
-        }
-
-        .close-button.show {
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <!-- Title -->
-    <h1>Squid Game</h1>
-    
-    <!-- Dimmed background -->
-    <div class="dimmed-background" id="dimmedBackground"></div>
-
-    <!-- Movie Image -->
-    <div class="movie-container" id="movieContainer" onclick="openZoom()">
-        <img id="movieThumbnail" src="/images/squidgames/thumbnail.jpg" alt="Squid Game Thumbnail">
-        <div class="movie-button" id="movieButtonText">Squid Game Ep 1</div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" id="movieModal">
-        <iframe id="movieIframe" allow="autoplay"></iframe>
-    </div>
-
-    <!-- Close Button -->
-    <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
-
-    <!-- JavaScript for Zoom Effect and Video Playback -->
-    <script>
-        const movieContainer = document.getElementById('movieContainer');
-        const movieThumbnail = document.getElementById('movieThumbnail');
-        const dimmedBackground = document.getElementById('dimmedBackground');
-        const closeButton = document.getElementById('closeButton');
-        const movieModal = document.getElementById('movieModal');
-        const movieIframe = document.getElementById('movieIframe');
-
-        // Function to open the zoom effect and start the video
-        function openZoom() {
-            movieContainer.classList.add('expand');
-            movieThumbnail.classList.add('expand');
-            dimmedBackground.classList.add('show');
-            closeButton.classList.add('show');
-            movieModal.classList.add('show');
-
-            // Set the Google Drive link
-            const videoURL = "https://drive.google.com/file/d/1xr7jyC16C8pHgQtmyd1ZMN41rxOQ6T0Z/preview"; // Provided Google Drive link
-            movieIframe.src = videoURL;
-        }
-
-        // Function to close the zoom effect and stop the video
-        function closeZoom() {
-            movieContainer.classList.remove('expand');
-            movieThumbnail.classList.remove('expand');
-            dimmedBackground.classList.remove('show');
-            closeButton.classList.remove('show');
-            movieModal.classList.remove('show');
-
-            // Stop the video by removing the iframe src
-            movieIframe.src = "";
-        }
-    </script>
-</body>
-</html>
+        // Stop the video by removing the iframe src
+        movieIframe.src = "";
+    }
+</script>
