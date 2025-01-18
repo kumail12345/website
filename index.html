@@ -23,14 +23,14 @@
             margin-bottom: 20px;
         }
 
-        /* Button container styling */
+        /* Buttons container styling */
         .buttons-container {
             display: flex;
             gap: 20px;
             margin-top: 20px;
         }
 
-        /* Image container styling */
+        /* Movie container styling */
         .movie-container {
             position: relative;
             width: 200px;
@@ -43,24 +43,11 @@
         .movie-container img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        /* Button text styling */
-        .movie-button {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 10px 0;
-            color: #fff;
-            font-size: 14px;
-            background-color: rgba(50, 50, 50, 0.8);
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        /* Dimmed background */
+        /* Dimmed background styling */
         .dimmed-background {
             position: fixed;
             top: 0;
@@ -68,9 +55,9 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
+            z-index: 5;
             display: none;
             opacity: 0;
-            z-index: 5;
             transition: opacity 0.5s ease-in-out;
         }
 
@@ -91,12 +78,6 @@
             transition: all 0.5s ease-in-out;
         }
 
-        .movie-container img.expand {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         /* Modal iframe */
         .modal {
             position: fixed;
@@ -105,6 +86,7 @@
             width: 100%;
             height: 100%;
             display: none;
+            z-index: 15;
             justify-content: center;
             align-items: center;
             background-color: rgba(0, 0, 0, 0.9);
@@ -139,23 +121,23 @@
 </head>
 <body>
     <!-- Title -->
-    <h1>Kumail's Website: Netflix-Style Zoom</h1>
+    <h1>Kumail's Website</h1>
     
     <!-- Dimmed background -->
     <div class="dimmed-background" id="dimmedBackground"></div>
 
     <!-- Buttons container -->
     <div class="buttons-container">
-        <!-- Flash -->
-        <div class="movie-container" id="flashContainer" onclick="openZoom('Flash', 'https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview')">
-            <img src="images/flash.jpg" alt="Flash S1 Ep1">
+        <!-- Flash Button -->
+        <div class="movie-container" id="flashContainer" onclick="openZoom('flash')">
+            <img src="images/flash.jpg" alt="Flash Thumbnail">
             <div class="movie-button">Flash S1 Ep1</div>
         </div>
 
-        <!-- Squid Game -->
-        <div class="movie-container" id="squidContainer" onclick="openZoom('Squid Game', 'squidgame.html')">
-            <img src="images/thumbnail.jpg" alt="Squid Game Season 2">
-            <div class="movie-button">Squid Game Season 2</div>
+        <!-- Squid Game Button -->
+        <div class="movie-container" id="squidContainer" onclick="openZoom('squid')">
+            <img src="images/thumbnail.jpg" alt="Squid Game Thumbnail">
+            <div class="movie-button">Squid Game S2</div>
         </div>
     </div>
 
@@ -167,26 +149,28 @@
     <!-- Close Button -->
     <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
 
+    <!-- JavaScript for Zoom Effect and Video Playback -->
     <script>
         const dimmedBackground = document.getElementById('dimmedBackground');
         const closeButton = document.getElementById('closeButton');
         const movieModal = document.getElementById('movieModal');
         const movieIframe = document.getElementById('movieIframe');
 
-        // Open zoom function
-        function openZoom(title, videoURL) {
+        // Video links
+        const videoLinks = {
+            flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
+            squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview"
+        };
+
+        // Function to open zoom effect and play video
+        function openZoom(movie) {
             dimmedBackground.classList.add('show');
             closeButton.classList.add('show');
             movieModal.classList.add('show');
-
-            if (videoURL.includes('drive.google.com')) {
-                movieIframe.src = videoURL;
-            } else {
-                window.location.href = videoURL;
-            }
+            movieIframe.src = videoLinks[movie];
         }
 
-        // Close zoom function
+        // Function to close zoom effect and stop video
         function closeZoom() {
             dimmedBackground.classList.remove('show');
             closeButton.classList.remove('show');
