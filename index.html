@@ -139,6 +139,12 @@
             <img src="images/thumbnail.jpg" alt="Squid Game Thumbnail">
             <div class="movie-button">Squid Game S2</div>
         </div>
+
+        <!-- Dexter Button -->
+        <div class="movie-container" id="dexterContainer" onclick="openZoom('dexter')">
+            <img src="images/dexter.jpg" alt="Dexter Thumbnail">
+            <div class="movie-button">Dexter S1</div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -159,15 +165,20 @@
         // Video links
         const videoLinks = {
             flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
-            squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview"
+            squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview",
+            dexter: "https://drive.google.com/file/d/YOUR_DEXTER_VIDEO_ID/preview" // Replace with actual link
         };
 
         // Function to open zoom effect and play video
         function openZoom(movie) {
-            dimmedBackground.classList.add('show');
-            closeButton.classList.add('show');
-            movieModal.classList.add('show');
-            movieIframe.src = videoLinks[movie];
+            if (videoLinks[movie]) {
+                dimmedBackground.classList.add('show');
+                closeButton.classList.add('show');
+                movieModal.classList.add('show');
+                movieIframe.src = videoLinks[movie];
+            } else {
+                alert("Video not found!");
+            }
         }
 
         // Function to close zoom effect and stop video
