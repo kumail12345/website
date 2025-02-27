@@ -1,20 +1,144 @@
-<!-- Buttons container -->
-<div class="buttons-container">
-    <!-- Flash Button -->
-    <div class="movie-container" id="flashContainer" onclick="openZoom('flash')">
-        <img src="images/flash.jpg" alt="Flash Thumbnail">
-        <div class="movie-button">Flash S1 Ep1</div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumail's Website</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
 
-    <!-- Squid Game Button -->
-    <div class="movie-container" id="squidContainer" onclick="openZoom('squid')">
-        <img src="images/thumbnail.jpg" alt="Squid Game Thumbnail">
-        <div class="movie-button">Squid Game S2</div>
-    </div>
+        /* Title styling */
+        h1 {
+            margin-bottom: 20px;
+        }
 
-    <!-- Dexter Episodes -->
+        /* Buttons container */
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 90%;
+            margin-top: 20px;
+        }
+
+        /* Movie container styling */
+        .movie-container {
+            position: relative;
+            width: 150px;
+            height: 225px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Image styling */
+        .movie-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 5px;
+        }
+
+        /* Movie button text */
+        .movie-button {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Dimmed background styling */
+        .dimmed-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 5;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .dimmed-background.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 15;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal iframe {
+            width: 80%;
+            height: 80%;
+            border: none;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        /* Close button */
+        .close-button {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 24px;
+            color: #fff;
+            z-index: 20;
+            cursor: pointer;
+            display: none;
+        }
+
+        .close-button.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>Kumail's Website</h1>
+    
+    <!-- Dimmed background -->
+    <div class="dimmed-background" id="dimmedBackground"></div>
+
+    <!-- Buttons container -->
     <div class="buttons-container">
-        <!-- Generate 12 Dexter buttons -->
+        <!-- Flash Button -->
+        <div class="movie-container" onclick="openZoom('flash')">
+            <img src="images/flash.jpg" alt="Flash Thumbnail">
+            <div class="movie-button">Flash S1 Ep1</div>
+        </div>
+
+        <!-- Squid Game Button -->
+        <div class="movie-container" onclick="openZoom('squid')">
+            <img src="images/thumbnail.jpg" alt="Squid Game Thumbnail">
+            <div class="movie-button">Squid Game S2</div>
+        </div>
+
+        <!-- Dexter Episodes -->
         <script>
             const dexterContainer = document.querySelector(".buttons-container");
             for (let i = 1; i <= 12; i++) {
@@ -27,58 +151,59 @@
             }
         </script>
     </div>
-</div>
 
-<!-- Modal -->
-<div class="modal" id="movieModal">
-    <iframe id="movieIframe" allow="autoplay"></iframe>
-</div>
+    <!-- Modal -->
+    <div class="modal" id="movieModal">
+        <iframe id="movieIframe" allow="autoplay"></iframe>
+    </div>
 
-<!-- Close Button -->
-<span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
+    <!-- Close Button -->
+    <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
 
-<!-- JavaScript for Zoom Effect and Video Playback -->
-<script>
-    const dimmedBackground = document.getElementById('dimmedBackground');
-    const closeButton = document.getElementById('closeButton');
-    const movieModal = document.getElementById('movieModal');
-    const movieIframe = document.getElementById('movieIframe');
+    <!-- JavaScript for Zoom Effect and Video Playback -->
+    <script>
+        const dimmedBackground = document.getElementById('dimmedBackground');
+        const closeButton = document.getElementById('closeButton');
+        const movieModal = document.getElementById('movieModal');
+        const movieIframe = document.getElementById('movieIframe');
 
-    // Video links for Dexter episodes
-    const videoLinks = {
-        flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
-        squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview",
-        dexterE1: "https://drive.google.com/file/d/YOUR_DEXTER_E1_VIDEO_ID/preview",
-        dexterE2: "https://drive.google.com/file/d/YOUR_DEXTER_E2_VIDEO_ID/preview",
-        dexterE3: "https://drive.google.com/file/d/YOUR_DEXTER_E3_VIDEO_ID/preview",
-        dexterE4: "https://drive.google.com/file/d/YOUR_DEXTER_E4_VIDEO_ID/preview",
-        dexterE5: "https://drive.google.com/file/d/YOUR_DEXTER_E5_VIDEO_ID/preview",
-        dexterE6: "https://drive.google.com/file/d/YOUR_DEXTER_E6_VIDEO_ID/preview",
-        dexterE7: "https://drive.google.com/file/d/YOUR_DEXTER_E7_VIDEO_ID/preview",
-        dexterE8: "https://drive.google.com/file/d/YOUR_DEXTER_E8_VIDEO_ID/preview",
-        dexterE9: "https://drive.google.com/file/d/YOUR_DEXTER_E9_VIDEO_ID/preview",
-        dexterE10: "https://drive.google.com/file/d/YOUR_DEXTER_E10_VIDEO_ID/preview",
-        dexterE11: "https://drive.google.com/file/d/YOUR_DEXTER_E11_VIDEO_ID/preview",
-        dexterE12: "https://drive.google.com/file/d/YOUR_DEXTER_E12_VIDEO_ID/preview"
-    };
+        // Video links for Dexter episodes
+        const videoLinks = {
+            flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
+            squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview",
+            dexterE1: "https://drive.google.com/file/d/YOUR_DEXTER_E1_VIDEO_ID/preview",
+            dexterE2: "https://drive.google.com/file/d/YOUR_DEXTER_E2_VIDEO_ID/preview",
+            dexterE3: "https://drive.google.com/file/d/YOUR_DEXTER_E3_VIDEO_ID/preview",
+            dexterE4: "https://drive.google.com/file/d/YOUR_DEXTER_E4_VIDEO_ID/preview",
+            dexterE5: "https://drive.google.com/file/d/YOUR_DEXTER_E5_VIDEO_ID/preview",
+            dexterE6: "https://drive.google.com/file/d/YOUR_DEXTER_E6_VIDEO_ID/preview",
+            dexterE7: "https://drive.google.com/file/d/YOUR_DEXTER_E7_VIDEO_ID/preview",
+            dexterE8: "https://drive.google.com/file/d/YOUR_DEXTER_E8_VIDEO_ID/preview",
+            dexterE9: "https://drive.google.com/file/d/YOUR_DEXTER_E9_VIDEO_ID/preview",
+            dexterE10: "https://drive.google.com/file/d/YOUR_DEXTER_E10_VIDEO_ID/preview",
+            dexterE11: "https://drive.google.com/file/d/YOUR_DEXTER_E11_VIDEO_ID/preview",
+            dexterE12: "https://drive.google.com/file/d/YOUR_DEXTER_E12_VIDEO_ID/preview"
+        };
 
-    // Function to open zoom effect and play video
-    function openZoom(movie) {
-        if (videoLinks[movie]) {
-            dimmedBackground.classList.add('show');
-            closeButton.classList.add('show');
-            movieModal.classList.add('show');
-            movieIframe.src = videoLinks[movie];
-        } else {
-            alert("Video not found!");
+        // Function to open zoom effect and play video
+        function openZoom(movie) {
+            if (videoLinks[movie]) {
+                dimmedBackground.classList.add('show');
+                closeButton.classList.add('show');
+                movieModal.classList.add('show');
+                movieIframe.src = videoLinks[movie];
+            } else {
+                alert("Video not found!");
+            }
         }
-    }
 
-    // Function to close zoom effect and stop video
-    function closeZoom() {
-        dimmedBackground.classList.remove('show');
-        closeButton.classList.remove('show');
-        movieModal.classList.remove('show');
-        movieIframe.src = "";
-    }
-</script>
+        // Function to close zoom effect and stop video
+        function closeZoom() {
+            dimmedBackground.classList.remove('show');
+            closeButton.classList.remove('show');
+            movieModal.classList.remove('show');
+            movieIframe.src = "";
+        }
+    </script>
+</body>
+</html>
