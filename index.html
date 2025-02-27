@@ -3,221 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumail's Website</title>
+    <title>Login to Kumail's Website</title>
     <style>
-        /* General styling */
+        /* General Styles */
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #000;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black background */
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        /* Title styling */
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        /* Movie container */
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            max-width: 90%;
-            margin-top: 20px;
-        }
-
-        .movie-container {
-            position: relative;
-            width: 150px;
-            height: 225px;
+            height: 100vh;
             overflow: hidden;
-            cursor: pointer;
-            border-radius: 5px;
         }
 
-        /* Image styling */
-        .movie-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            border-radius: 5px;
-        }
-
-        /* Transparent overlay text */
-        .movie-button {
+        /* Hexagon Pattern */
+        .hexagon-pattern {
             position: absolute;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 5px 0;
-            font-size: 14px;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .hexagon {
+            position: absolute;
+            width: 100px;
+            height: 57.74px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent hexagons */
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .hexagon:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .hexagon:nth-child(2) {
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .hexagon:nth-child(3) {
+            top: 60%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .hexagon:nth-child(4) {
+            top: 80%;
+            left: 50%;
+            animation-delay: 1s;
+        }
+
+        .hexagon:nth-child(5) {
+            top: 40%;
+            left: 40%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Login Container */
+        .login-container {
             text-align: center;
-            transition: 0.3s ease-in-out;
+            width: 300px;
         }
 
-        /* Hover effect */
-        .movie-container:hover img {
-            transform: scale(1.05);
-        }
-
-        .movie-container:hover .movie-button {
-            background: rgba(255, 0, 0, 0.7); /* Red tint */
-        }
-
-        /* Dimmed background styling */
-        .dimmed-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 5;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .dimmed-background.show {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            z-index: 15;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-
-        .modal iframe {
-            width: 80%;
-            height: 80%;
-            border: none;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        /* Close button */
-        .close-button {
-            position: fixed;
-            top: 20px;
-            right: 30px;
+        .login-container h1 {
+            margin-bottom: 20px;
             font-size: 24px;
             color: #fff;
-            z-index: 20;
-            cursor: pointer;
-            display: none;
         }
 
-        .close-button.show {
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
             display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px; /* Curved edges */
+            font-size: 14px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #00fffb; /* Neon blue focus effect */
+        }
+
+        /* Button Styles */
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background: none; /* No background */
+            border: 1px solid #fff; /* White border */
+            border-radius: 25px; /* Curved edges */
+            color: #fff; /* White text */
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+            margin-top: 10px; /* Space between password field and button */
+        }
+
+        .login-button:hover {
+            background: #fff; /* White background on hover */
+            color: #000; /* Black text on hover */
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
         }
     </style>
 </head>
 <body>
-    <!-- Title -->
-    <h1>Kumail's Website</h1>
-    
-    <!-- Dimmed background -->
-    <div class="dimmed-background" id="dimmedBackground"></div>
-
-    <!-- Thumbnails container -->
-    <div class="buttons-container">
-        <!-- Flash Button -->
-        <div class="movie-container" onclick="openZoom('flash')">
-            <img src="images/flash.jpg" alt="Flash Thumbnail">
-            <div class="movie-button">Flash S1 Ep1</div>
-        </div>
-
-        <!-- Squid Game Button -->
-        <div class="movie-container" onclick="openZoom('squid')">
-            <img src="images/thumbnail.jpg" alt="Squid Game Thumbnail">
-            <div class="movie-button">Squid Game S2</div>
-        </div>
-
-        <!-- Dexter Episodes Thumbnails with overlay text -->
-        <script>
-            const dexterContainer = document.querySelector(".buttons-container");
-            for (let i = 1; i <= 12; i++) {
-                dexterContainer.innerHTML += `
-                    <div class="movie-container" onclick="openZoom('dexterE${i}')">
-                        <img src="images/dexter.jpg" alt="Dexter Thumbnail">
-                        <div class="movie-button">Dexter E${i}</div>
-                    </div>
-                `;
-            }
-        </script>
+    <!-- Hexagon Pattern -->
+    <div class="hexagon-pattern">
+        <div class="hexagon"></div>
+        <div class="hexagon"></div>
+        <div class="hexagon"></div>
+        <div class="hexagon"></div>
+        <div class="hexagon"></div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="movieModal">
-        <iframe id="movieIframe" allow="autoplay"></iframe>
+    <!-- Login Container -->
+    <div class="login-container">
+        <h1>Login to Kumail's Website</h1>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+            <div id="error-message" class="error-message">Invalid username or password.</div>
+        </form>
     </div>
 
-    <!-- Close Button -->
-    <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
-
-    <!-- JavaScript for Zoom Effect and Video Playback -->
+    <!-- JavaScript for Login Validation -->
     <script>
-        const dimmedBackground = document.getElementById('dimmedBackground');
-        const closeButton = document.getElementById('closeButton');
-        const movieModal = document.getElementById('movieModal');
-        const movieIframe = document.getElementById('movieIframe');
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
 
-        // Video links for Dexter episodes
-        const videoLinks = {
-            flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
-            squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview",
-            dexterE1: "https://drive.google.com/file/d/1AhPkgf7vbuYD8kjCnobTHY3fW3jSVi62/preview",
-            dexterE2: "https://drive.google.com/file/d/1XU4k8PvvzoCQFgpz1IerWUZ4OGcKY9U2/preview",
-            dexterE3: "https://drive.google.com/file/d/1oABvYL7N-WeX17SEG8FJxb7q9nD-NND3/preview",
-            dexterE4: "https://drive.google.com/file/d/1zCKIoIVIm91flX45yfJxfuUPX1jSw7Mt/preview",
-            dexterE5: "https://drive.google.com/file/d/19dgenK4KHqNbAL_KupttyI1CSIxbd-m-/preview",
-            dexterE6: "https://drive.google.com/file/d/1wlWM0i8DqbLnvl9X80b3faJOsg3UseDd/preview",
-            dexterE7: "https://drive.google.com/file/d/1_RQC3whvFaCG9fjMv-PJ1Qg-5fBwHkCN/preview",
-            dexterE8: "https://drive.google.com/file/d/1GXUqjmwHBXDV1nBIQon6VNYt3B1oBdDD/preview",
-            dexterE9: "https://drive.google.com/file/d/1O-emMV-DlW7bSZUSyAeUEvAG2STQEisd/preview",
-            dexterE10: "https://drive.google.com/file/d/1DolKJaCpn1Br4pRd8NZBZCQHzf6-IQnw/preview",
-            dexterE11: "https://drive.google.com/file/d/1yMLqsOqzE6QZz2WxnTvGFmeq_RhBV9Wd/preview",
-            dexterE12: "https://drive.google.com/file/d/1jAlZ6pkxw9icBDcb4Jlw7op_PYLUGtwh/preview"
-        };
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
 
-        function openZoom(movie) {
-            if (videoLinks[movie]) {
-                dimmedBackground.classList.add('show');
-                closeButton.classList.add('show');
-                movieModal.classList.add('show');
-                movieIframe.src = videoLinks[movie];
+            // Get input values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check if credentials are correct
+            if (username === 'kumail' && password === 'movies') {
+                // Redirect to movies.html
+                window.location.href = 'movies.html';
             } else {
-                alert("Video not found!");
+                errorMessage.style.display = 'block'; // Show error message
             }
-        }
-
-        function closeZoom() {
-            dimmedBackground.classList.remove('show');
-            closeButton.classList.remove('show');
-            movieModal.classList.remove('show');
-            movieIframe.src = "";
-        }
+        });
     </script>
 </body>
 </html>
