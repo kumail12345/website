@@ -23,7 +23,7 @@
             margin-bottom: 20px;
         }
 
-        /* Buttons container */
+        /* Movie container */
         .buttons-container {
             display: flex;
             flex-wrap: wrap;
@@ -33,13 +33,13 @@
             margin-top: 20px;
         }
 
-        /* Movie container styling */
         .movie-container {
             position: relative;
             width: 150px;
             height: 225px;
             overflow: hidden;
             cursor: pointer;
+            border-radius: 5px;
         }
 
         /* Image styling */
@@ -51,34 +51,26 @@
             border-radius: 5px;
         }
 
-        /* Movie button text */
+        /* Transparent overlay text */
         .movie-button {
-            margin-top: 5px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 0;
             font-size: 14px;
+            text-align: center;
+            transition: 0.3s ease-in-out;
         }
 
-        /* Dexter episode buttons */
-        .dexter-buttons {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
+        /* Hover effect */
+        .movie-container:hover img {
+            transform: scale(1.05);
         }
 
-        .dexter-buttons button {
-            background-color: #ff0000;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .dexter-buttons button:hover {
-            background-color: #cc0000;
+        .movie-container:hover .movie-button {
+            background: rgba(255, 0, 0, 0.7); /* Red tint */
         }
 
         /* Dimmed background styling */
@@ -162,7 +154,7 @@
             <div class="movie-button">Squid Game S2</div>
         </div>
 
-        <!-- Dexter Episodes Thumbnails -->
+        <!-- Dexter Episodes Thumbnails with overlay text -->
         <script>
             const dexterContainer = document.querySelector(".buttons-container");
             for (let i = 1; i <= 12; i++) {
@@ -171,18 +163,6 @@
                         <img src="images/dexter.jpg" alt="Dexter Thumbnail">
                         <div class="movie-button">Dexter E${i}</div>
                     </div>
-                `;
-            }
-        </script>
-    </div>
-
-    <!-- Dexter Episode Buttons -->
-    <div class="dexter-buttons">
-        <script>
-            const dexterButtons = document.querySelector(".dexter-buttons");
-            for (let i = 1; i <= 12; i++) {
-                dexterButtons.innerHTML += `
-                    <button onclick="openZoom('dexterE${i}')">Dexter E${i}</button>
                 `;
             }
         </script>
