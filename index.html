@@ -57,6 +57,30 @@
             font-size: 14px;
         }
 
+        /* Dexter episode buttons */
+        .dexter-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .dexter-buttons button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .dexter-buttons button:hover {
+            background-color: #cc0000;
+        }
+
         /* Dimmed background styling */
         .dimmed-background {
             position: fixed;
@@ -124,7 +148,7 @@
     <!-- Dimmed background -->
     <div class="dimmed-background" id="dimmedBackground"></div>
 
-    <!-- Buttons container -->
+    <!-- Thumbnails container -->
     <div class="buttons-container">
         <!-- Flash Button -->
         <div class="movie-container" onclick="openZoom('flash')">
@@ -138,7 +162,7 @@
             <div class="movie-button">Squid Game S2</div>
         </div>
 
-        <!-- Dexter Episodes -->
+        <!-- Dexter Episodes Thumbnails -->
         <script>
             const dexterContainer = document.querySelector(".buttons-container");
             for (let i = 1; i <= 12; i++) {
@@ -147,6 +171,18 @@
                         <img src="images/dexter.jpg" alt="Dexter Thumbnail">
                         <div class="movie-button">Dexter E${i}</div>
                     </div>
+                `;
+            }
+        </script>
+    </div>
+
+    <!-- Dexter Episode Buttons -->
+    <div class="dexter-buttons">
+        <script>
+            const dexterButtons = document.querySelector(".dexter-buttons");
+            for (let i = 1; i <= 12; i++) {
+                dexterButtons.innerHTML += `
+                    <button onclick="openZoom('dexterE${i}')">Dexter E${i}</button>
                 `;
             }
         </script>
