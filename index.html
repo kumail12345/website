@@ -184,6 +184,8 @@
 
             // Check if credentials are correct
             if (username === 'kumail' && password === 'movies') {
+                // Set a flag in sessionStorage
+                sessionStorage.setItem('isLoggedIn', 'true');
                 // Redirect to movies.html
                 window.location.href = 'movies.html';
             } else {
