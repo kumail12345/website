@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumail's Website</title>
     <style>
-        /* General styling */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -18,12 +17,10 @@
             text-align: center;
         }
 
-        /* Title styling */
         h1 {
             margin-bottom: 20px;
         }
 
-        /* Movie container */
         .buttons-container {
             display: flex;
             flex-wrap: wrap;
@@ -42,7 +39,6 @@
             border-radius: 5px;
         }
 
-        /* Image styling */
         .movie-container img {
             width: 100%;
             height: 100%;
@@ -51,7 +47,6 @@
             border-radius: 5px;
         }
 
-        /* Transparent overlay text */
         .movie-button {
             position: absolute;
             bottom: 0;
@@ -64,35 +59,14 @@
             transition: 0.3s ease-in-out;
         }
 
-        /* Hover effect */
         .movie-container:hover img {
             transform: scale(1.05);
         }
 
         .movie-container:hover .movie-button {
-            background: rgba(255, 0, 0, 0.7); /* Red tint */
+            background: rgba(255, 0, 0, 0.7);
         }
 
-        /* Dimmed background styling */
-        .dimmed-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 5;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .dimmed-background.show {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -116,7 +90,6 @@
             display: flex;
         }
 
-        /* Close button */
         .close-button {
             position: fixed;
             top: 20px;
@@ -134,110 +107,84 @@
     </style>
 </head>
 <body>
-    <!-- Session Storage Validation -->
-    <script>
-        // Check if the user is logged in
-        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-            // Redirect back to the login page
-            window.location.href = 'index.html';
-        }
-    </script>
 
-    <!-- Title -->
     <h1>Kumail's Website</h1>
-    
-    <!-- Dimmed background -->
-    <div class="dimmed-background" id="dimmedBackground"></div>
 
-    <!-- Thumbnails container -->
     <div class="buttons-container">
-        <!-- Flash Button -->
-        <div class="movie-container" onclick="openZoom('flash')">
-            <img src="images/flash.jpg" alt="Flash Thumbnail">
-            <div class="movie-button">Flash S1 Ep1</div>
-        </div>
-
-        <!-- Squid Game Button -->
-        <div class="movie-container" onclick="openZoom('squid')">
-            <img src="images/thumbnail.jpg" alt="Squid Game Thumbnail">
-            <div class="movie-button">Squid Game S2</div>
-        </div>
-
-        <!-- Dexter Episodes Thumbnails with overlay text -->
+        <!-- Season 1 -->
         <script>
-            const dexterContainer = document.querySelector(".buttons-container");
-            const seasons = [2, 3, 4];
+            const season1Links = [
+                "https://drive.google.com/file/d/1AhPkgf7vbuYD8kjCnobTHY3fW3jSVi62/preview",
+                "https://drive.google.com/file/d/1XU4k8PvvzoCQFgpz1IerWUZ4OGcKY9U2/preview",
+                "https://drive.google.com/file/d/1oABvYL7N-WeX17SEG8FJxb7q9nD-NND3/preview",
+                "https://drive.google.com/file/d/1zCKIoIVIm91flX45yfJxfuUPX1jSw7Mt/preview",
+                "https://drive.google.com/file/d/19dgenK4KHqNbAL_KupttyI1CSIxbd-m-/preview",
+                "https://drive.google.com/file/d/1wlWM0i8DqbLnvl9X80b3faJOsg3UseDd/preview",
+                "https://drive.google.com/file/d/1_RQC3whvFaCG9fjMv-PJ1Qg-5fBwHkCN/preview",
+                "https://drive.google.com/file/d/1GXUqjmwHBXDV1nBIQon6VNYt3B1oBdDD/preview",
+                "https://drive.google.com/file/d/1O-emMV-DlW7bSZUSyAeUEvAG2STQEisd/preview",
+                "https://drive.google.com/file/d/1DolKJaCpn1Br4pRd8NZBZCQHzf6-IQnw/preview",
+                "https://drive.google.com/file/d/1yMLqsOqzE6QZz2WxnTvGFmeq_RhBV9Wd/preview",
+                "https://drive.google.com/file/d/1jAlZ6pkxw9icBDcb4Jlw7op_PYLUGtwh/preview"
+            ];
 
-            // Add Season 1 (existing)
-            for (let i = 1; i <= 12; i++) {
-                dexterContainer.innerHTML += `
-                    <div class="movie-container" onclick="openZoom('dexterS1E${i}')">
-                        <img src="images/dexter.jpg" alt="Dexter Thumbnail">
-                        <div class="movie-button">Dexter S1 E${i}</div>
+            for (let i = 0; i < 12; i++) {
+                document.write(`
+                    <div class="movie-container" onclick="openZoom('${season1Links[i]}')">
+                        <img src="images/dexter.jpg">
+                        <div class="movie-button">Dexter S1 E${i + 1}</div>
                     </div>
-                `;
+                `);
             }
+        </script>
 
-            // Add Seasons 2, 3, 4
-            seasons.forEach(season => {
-                for (let i = 1; i <= 12; i++) {
-                    dexterContainer.innerHTML += `
-                        <div class="movie-container" onclick="openZoom('dexterS${season}E${i}')">
-                            <img src="images/dexter.jpg" alt="Dexter Thumbnail">
-                            <div class="movie-button">Dexter S${season} E${i}</div>
-                        </div>
-                    `;
-                }
-            });
+        <!-- Season 2 -->
+        <script>
+            const season2Links = [
+                "https://drive.google.com/file/d/1lx1M6RVOHCBGCOraZKjhAU1mCy1PeVGu/preview",
+                "https://drive.google.com/file/d/1cfdZQIrMc8eLQpVrC88iuXb_kjHsHsiy/preview",
+                "https://drive.google.com/file/d/1K6kYiaGMtcezfA9fpuE7xLunx9MFuhov/preview",
+                "https://drive.google.com/file/d/19l6CwBCw6wOrdysRmDZCBzfdSWWjDGjB/preview",
+                "https://drive.google.com/file/d/10B8csPKaVaNl9nBw-usoTPLW11ZD861h/preview",
+                "https://drive.google.com/file/d/1_J-2FldWJT0yoxDQ6pp8blcKUKx5UGts/preview",
+                "https://drive.google.com/file/d/1tpQSkU2MT8ADCOuYr2SnnBhdL-Bqk5b4/preview",
+                "https://drive.google.com/file/d/1STR3JHeaKWNKUMsc6fk4_BLmwITfT6uQ/preview",
+                "https://drive.google.com/file/d/1iB7XfZX5DM6b1i3TUrRXYwZWd7Xp1Hgn/preview",
+                "https://drive.google.com/file/d/1iB7XfZX5DM6b1i3TUrRXYwZWd7Xp1Hgn/preview",
+                "https://drive.google.com/file/d/1avsEMICKcXrBnXRPU0o7jP8C1ScPhqvt/preview",
+                "https://drive.google.com/file/d/1iDkl1FPSedv6nM6DQz824BkOYuYs_sOR/preview"
+            ];
+
+            for (let i = 0; i < 12; i++) {
+                document.write(`
+                    <div class="movie-container" onclick="openZoom('${season2Links[i]}')">
+                        <img src="images/dexter.jpg">
+                        <div class="movie-button">Dexter S2 E${i + 1}</div>
+                    </div>
+                `);
+            }
         </script>
     </div>
 
-    <!-- Modal -->
     <div class="modal" id="movieModal">
         <iframe id="movieIframe" allow="autoplay"></iframe>
     </div>
 
-    <!-- Close Button -->
     <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
 
-    <!-- JavaScript for Zoom Effect and Video Playback -->
     <script>
-        const dimmedBackground = document.getElementById('dimmedBackground');
-        const closeButton = document.getElementById('closeButton');
-        const movieModal = document.getElementById('movieModal');
-        const movieIframe = document.getElementById('movieIframe');
-
-        // Video links for Dexter episodes (You need to add links for S2, S3, S4)
-        const videoLinks = {
-            flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
-            squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview",
-        };
-
-        // Generate video links for Dexter S1-S4
-        for (let season = 1; season <= 4; season++) {
-            for (let episode = 1; episode <= 12; episode++) {
-                const key = `dexterS${season}E${episode}`;
-                videoLinks[key] = `https://drive.google.com/file/d/YOUR_VIDEO_ID_HERE/preview`; // Replace with actual links
-            }
-        }
-
-        function openZoom(movie) {
-            if (videoLinks[movie]) {
-                dimmedBackground.classList.add('show');
-                closeButton.classList.add('show');
-                movieModal.classList.add('show');
-                movieIframe.src = videoLinks[movie];
-            } else {
-                alert("Video not found!");
-            }
+        function openZoom(link) {
+            document.getElementById('movieModal').classList.add('show');
+            document.getElementById('movieIframe').src = link;
+            document.getElementById('closeButton').classList.add('show');
         }
 
         function closeZoom() {
-            dimmedBackground.classList.remove('show');
-            closeButton.classList.remove('show');
-            movieModal.classList.remove('show');
-            movieIframe.src = "";
+            document.getElementById('movieModal').classList.remove('show');
+            document.getElementById('movieIframe').src = "";
+            document.getElementById('closeButton').classList.remove('show');
         }
     </script>
+
 </body>
 </html>
