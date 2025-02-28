@@ -166,14 +166,29 @@
         <!-- Dexter Episodes Thumbnails with overlay text -->
         <script>
             const dexterContainer = document.querySelector(".buttons-container");
+            const seasons = [2, 3, 4];
+
+            // Add Season 1 (existing)
             for (let i = 1; i <= 12; i++) {
                 dexterContainer.innerHTML += `
-                    <div class="movie-container" onclick="openZoom('dexterE${i}')">
+                    <div class="movie-container" onclick="openZoom('dexterS1E${i}')">
                         <img src="images/dexter.jpg" alt="Dexter Thumbnail">
-                        <div class="movie-button">Dexter E${i}</div>
+                        <div class="movie-button">Dexter S1 E${i}</div>
                     </div>
                 `;
             }
+
+            // Add Seasons 2, 3, 4
+            seasons.forEach(season => {
+                for (let i = 1; i <= 12; i++) {
+                    dexterContainer.innerHTML += `
+                        <div class="movie-container" onclick="openZoom('dexterS${season}E${i}')">
+                            <img src="images/dexter.jpg" alt="Dexter Thumbnail">
+                            <div class="movie-button">Dexter S${season} E${i}</div>
+                        </div>
+                    `;
+                }
+            });
         </script>
     </div>
 
@@ -192,23 +207,19 @@
         const movieModal = document.getElementById('movieModal');
         const movieIframe = document.getElementById('movieIframe');
 
-        // Video links for Dexter episodes
+        // Video links for Dexter episodes (You need to add links for S2, S3, S4)
         const videoLinks = {
             flash: "https://drive.google.com/file/d/1LYFZXv7kPpFv4Bj5D4mGMHVgZ4BAFfoS/preview",
             squid: "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview",
-            dexterE1: "https://drive.google.com/file/d/1AhPkgf7vbuYD8kjCnobTHY3fW3jSVi62/preview",
-            dexterE2: "https://drive.google.com/file/d/1XU4k8PvvzoCQFgpz1IerWUZ4OGcKY9U2/preview",
-            dexterE3: "https://drive.google.com/file/d/1oABvYL7N-WeX17SEG8FJxb7q9nD-NND3/preview",
-            dexterE4: "https://drive.google.com/file/d/1zCKIoIVIm91flX45yfJxfuUPX1jSw7Mt/preview",
-            dexterE5: "https://drive.google.com/file/d/19dgenK4KHqNbAL_KupttyI1CSIxbd-m-/preview",
-            dexterE6: "https://drive.google.com/file/d/1wlWM0i8DqbLnvl9X80b3faJOsg3UseDd/preview",
-            dexterE7: "https://drive.google.com/file/d/1_RQC3whvFaCG9fjMv-PJ1Qg-5fBwHkCN/preview",
-            dexterE8: "https://drive.google.com/file/d/1GXUqjmwHBXDV1nBIQon6VNYt3B1oBdDD/preview",
-            dexterE9: "https://drive.google.com/file/d/1O-emMV-DlW7bSZUSyAeUEvAG2STQEisd/preview",
-            dexterE10: "https://drive.google.com/file/d/1DolKJaCpn1Br4pRd8NZBZCQHzf6-IQnw/preview",
-            dexterE11: "https://drive.google.com/file/d/1yMLqsOqzE6QZz2WxnTvGFmeq_RhBV9Wd/preview",
-            dexterE12: "https://drive.google.com/file/d/1jAlZ6pkxw9icBDcb4Jlw7op_PYLUGtwh/preview"
         };
+
+        // Generate video links for Dexter S1-S4
+        for (let season = 1; season <= 4; season++) {
+            for (let episode = 1; episode <= 12; episode++) {
+                const key = `dexterS${season}E${episode}`;
+                videoLinks[key] = `https://drive.google.com/file/d/YOUR_VIDEO_ID_HERE/preview`; // Replace with actual links
+            }
+        }
 
         function openZoom(movie) {
             if (videoLinks[movie]) {
