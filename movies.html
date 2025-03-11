@@ -186,5 +186,55 @@
         }
     </script>
 
+
+    <!-- Movie Image -->
+    <div class="movie-container" id="movieContainer" onclick="openZoom()">
+        <img id="movieThumbnail" src="/images/squidgames/thumbnail.jpg" alt="Squid Game Thumbnail">
+        <div class="movie-button" id="movieButtonText">Squid Game Ep 1</div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="movieModal">
+        <iframe id="movieIframe" allow="autoplay"></iframe>
+    </div>
+
+    <!-- Close Button -->
+    <span class="close-button" id="closeButton" onclick="closeZoom()">&times;</span>
+
+    <!-- JavaScript for Zoom Effect and Video Playback -->
+    <script>
+        const movieContainer = document.getElementById('movieContainer');
+        const movieThumbnail = document.getElementById('movieThumbnail');
+        const dimmedBackground = document.getElementById('dimmedBackground');
+        const closeButton = document.getElementById('closeButton');
+        const movieModal = document.getElementById('movieModal');
+        const movieIframe = document.getElementById('movieIframe');
+
+        // Function to open the zoom effect and start the video
+        function openZoom() {
+            movieContainer.classList.add('expand');
+            movieThumbnail.classList.add('expand');
+            dimmedBackground.classList.add('show');
+            closeButton.classList.add('show');
+            movieModal.classList.add('show');
+
+            // Set the Google Drive link (updated to use preview)
+            const videoURL = "https://drive.google.com/file/d/1Sv4AbBFHg3RkSmCl-TXm_n1uKBCYAmo1/preview"; // Updated link
+            movieIframe.src = videoURL;
+        }
+
+        // Function to close the zoom effect and stop the video
+        function closeZoom() {
+            movieContainer.classList.remove('expand');
+            movieThumbnail.classList.remove('expand');
+            dimmedBackground.classList.remove('show');
+            closeButton.classList.remove('show');
+            movieModal.classList.remove('show');
+
+            // Stop the video by removing the iframe src
+            movieIframe.src = "";
+        }
+    </script>
+
 </body>
 </html>
